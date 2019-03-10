@@ -8,7 +8,7 @@ var Sounds = require('../Sounds');
 var Intro = React.createClass({
   render:function(){
     return <div className="intro">
-      <h1 className="from-left">Little shooter</h1>
+      <h1 className="from-left">Limor's Bizzabo Journey</h1>
       <h2 className="from-left delay-1">
         Press <span className="button">RETURN</span>
       </h2>

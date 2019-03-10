@@ -66,6 +66,17 @@ div:-webkit-full-screen .game {
   text-transform: uppercase;
   padding-top   : 20%;
 
+  &.wave-intro{
+    width: auto;
+    padding-left :5%;
+    padding-right :5%;
+    position: unset;
+
+  }
+  h1{
+    font-size :30px
+  }
+
   h1, h2{
     margin:auto;
   }
@@ -87,10 +98,17 @@ div:-webkit-full-screen .game {
   left    : 0;
 }
 .ship{
-  width           : 20px;
-  height          : 23px;
-  background-image: url("../assets/spaceShip.png");
+  width           : 40px;
+  height          : 40px;
+  background-image: url("../assets/limor.png");
+  background-repeat:no-repeat;
+  background-size:contain;
   z-index         : 3;
+}
+
+.life .ship{
+    width           : 30px;
+    height          : 30px;
 }
 .particle{
   width     : 5px;
@@ -253,4 +271,17 @@ div:-webkit-full-screen .game {
 .score{
   text-transform: none;
   font-size: 20px;
+}
+
+.level-title{
+  font-size: 1.5 em;
+  color: yellow;
+}
+.level-description, .victory-description{
+  font-size: 1.5 em;
+  color: yellow;
+}
+.level-instructions{
+  font-size: 1.2 em;
+  color: red;
 }

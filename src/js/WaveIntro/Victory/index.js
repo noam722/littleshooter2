@@ -9,8 +9,8 @@ var Victory = React.createClass({
   render : function(){
     if( this.props.score > 0 ){
       return <div className="wave-intro intro">
-          <h1 className="impact">Victory!</h1>
-          <KillList className="from-left" stats={this.props.stats}/>
+          <h1 className="impact">{this.props.title}</h1>
+          <KillList className="from-left" stats={this.props.stats} title={this.props.description}/>
           <Score className="fade-in" score={ this.props.score } />
           <p className="fade-in-then-blink">
             Press <span className="button">enter</span>
@@ -19,8 +19,8 @@ var Victory = React.createClass({
     }
     else {
       return <div className="wave-intro intro">
-          <h1 className="impact">Victory!</h1>
-          <KillList className="from-left" stats={this.props.stats}/>
+          <h1 className="impact">{this.props.title}</h1>
+          <KillList className="from-left" stats={this.props.stats} title={this.props.description}/>
           <p className="fade-in-then-blink">
             Press <span className="button">enter</span>
           </p>

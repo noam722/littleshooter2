@@ -15,7 +15,7 @@ var HUD = React.createClass({
       <div className="points">{player.score}</div>
       <Gauge amount={player.getWeaponEnergyRatio()} label="power"/>
       <div className="life">{life}</div>
-      <div className="day">Day {dayNumber}</div>
+      <div className="day">LEVEL {dayNumber}</div>
     </div>;
   },
   shouldComponentUpdate: function(nextProps){

@@ -24,8 +24,17 @@ var Ship = React.createClass({
     var laserX      = ship.position[0] + ship.size[0] / 2;
     var hitBaddie   = this.getFirstHitBaddie( laserX, this.props.baddies );
     var laserHeight = hitBaddie ? Math.abs(hitBaddie.position[1] + hitBaddie.size[1] - ship.position[1]) : 1;
+    var hitByHoney = true;
 
-    if(ship.isInvincible) cssClasses.push("blink");
+    if(ship.isInvincible){
+      if(hitByHoney){
+          cssClasses.push("allergy");
+      }
+      else{
+          cssClasses.push("blink");
+      }
+
+    }
 
     return <div className={ cssClasses.join(" ")} style={style}>
              <div className="laser" style={ {height: laserHeight * this.props.screen.height} }/> 

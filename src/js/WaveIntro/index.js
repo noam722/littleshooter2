@@ -15,24 +15,26 @@ var WaveIntro = React.createClass({
     };
   },
   render:function(){
+      var waveNumber = this.props.world.waveManager.currentWave + (this.state.isVictory ? 1 : 0);
+      var nextWave = this.props.world.waveManager.getWave(waveNumber);
+      var currentWave = this.props.world.waveManager.getWave(this.props.world.waveManager.currentWave);
     if( this.state.step === 0){
       if(this.state.isVictory)
-        return <Victory score={this.state.score} stats={this.props.world.stats} />;
+        return <Victory score={this.state.score} stats={this.props.world.stats} title={currentWave.victoryTitle || 'VICTORY!'} description={currentWave.victoryDescription ||  'ENEMIES KILLED'} />;
       else
         return <Defeat stats={this.props.world.stats}/>;
     }
     else if(this.state.step === 1){
-      var waveNumber = this.props.world.waveManager.currentWave + (this.state.isVictory ? 1 : 0);
-      var nextWave = this.props.world.waveManager.getWave(waveNumber);
       return <div className="day intro">
-               <h1 className="from-bottom-fade-in delay-1">Day {waveNumber + 1}</h1>
-               <p className="from-top-fade-in delay-2">{ nextWave.title }</p>
+               <h1 className="from-bottom-fade-in delay-1">LEVEL {waveNumber + 1}</h1>
+               <p className="from-top-fade-in delay-2 level-title">{ nextWave.title }</p>
              </div>
     }
     else if(this.state.step === 2){
       return <div className="wave-intro intro">
-          <h1 className="impact">Next Wave Incoming</h1>
-          <p className="from-left">Kill at least <strong>3/4</strong> of the ennemies</p>
+          <h1 className="impact">{nextWave.title}</h1>
+          <p className="from-left level-description">{nextWave.description}</p>
+          <p className="from-left level-instructions">{nextWave.instructions}</p>
           <h2 className="impact delay-1">Get ready!</h2>
           <p className="fade-in-then-blink">
             Press <span className="button">enter</span>

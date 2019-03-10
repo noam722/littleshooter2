@@ -139,7 +139,7 @@ var Monster = function( config ) {
 }
 
 Monster.prototype = {
-  PRFX_ID : null,
+  PRFX_ID : this.PRFX_ID || null,
   tick: function( deltaT, world ){
     if(this.afterMove) {
       this.tick = function( dt, w ){
@@ -183,23 +183,24 @@ Monster.prototype = {
   }
 };
 
-var Zouro = function( position, movePattern){
-  Monster.call( this, {
+var Zouro = function( position, movePattern, _id){
+    this.PRFX_ID = _id;
+    Monster.call( this, {
     position     : position || [ Math.random(), -0.2],
     maxSpeed     : [0.0001, 0.0001],
     speed        : [0, 0.0001],
     size         : [0.04, 0.04],
     weight       : 1,
     life         : 3,
-    pattern      : movePattern || "straight"
+    pattern      : movePattern || "straight",
   });
 };
 Zouro.prototype = Object.create( Monster.prototype );
 Zouro.prototype.constructor = Zouro;
-Zouro.prototype.PRFX_ID = "zouro";
 
-var Ouno = function( position, movePattern){
-  Monster.call( this, {
+var Ouno = function( position, movePattern, _id){
+    this.PRFX_ID = _id;
+    Monster.call( this, {
     position     : position || [ Math.random(), -0.2],
     maxSpeed     : [0.0003, 0.0003],
     speed        : [0, 0.0003],
@@ -212,9 +213,25 @@ var Ouno = function( position, movePattern){
 };
 Ouno.prototype = Object.create( Monster.prototype );
 Ouno.prototype.constructor = Ouno;
-Ouno.prototype.PRFX_ID = "ouno";
 
-var Douo = function( position, movePattern ){
+var Jira = function( position, movePattern, _id){
+    this.PRFX_ID = _id;
+    Monster.call( this, {
+    position     : position || [ Math.random(), -0.2],
+    maxSpeed     : [0.0003, 0.0003],
+    speed        : [0, 0.0003],
+    size         : [0.04, 0.04],
+    weight       : 1,
+    life         : 3,
+    pattern      : movePattern || "largeScan",
+    value        : 100
+  });
+};
+Jira.prototype = Object.create( Monster.prototype );
+Jira.prototype.constructor = Jira;
+
+
+var Douo = function( position, movePattern, _id ){
   Monster.call( this, {
     position     : position || [ Math.random(), -0.2],
     maxSpeed     : [0.0001, 0.0001],
@@ -225,11 +242,12 @@ var Douo = function( position, movePattern ){
     pattern      : movePattern || "straight",
     value        : 200
   });
+    this.PRFX_ID = _id;
   this.lastFire     = 0;
 };
 Douo.prototype = Object.create(Monster.prototype);
 Douo.prototype.constructor = Douo;
-Douo.prototype.PRFX_ID = "douo";
+
 Douo.prototype.afterMove = function( dt, world ){
   var x = this.position[0] + this.size[0]/2;
   var xPlayer = world.ship.position[0];
@@ -247,40 +265,48 @@ Douo.prototype.afterMove = function( dt, world ){
   }
 };
 
-var Trouo = function( position, movePattern ){
+var Trouo = function( position, movePattern, _id ){
+  this.PRFX_ID = _id;
   Monster.call( this, {
     position     : position || [ Math.random(), -0.2],
-    maxSpeed     : [0.0005, 0.0005],
-    speed        : [0, 0.0005],
+    maxSpeed     : [0.0002, 0.0002],
+    speed        : [0, 0.0002],
     size         : [0.04, 0.04],
     weight       : 0.75,
-    life         : 1,
+    life         : 3,
     pattern      : movePattern || "pong",
-    value        : 75
+    value        : 200
+
   });
+
 };
 Trouo.prototype = Object.create(Monster.prototype);
 Trouo.prototype.constructor = Trouo;
-Trouo.prototype.PRFX_ID = "trouo";
 
 var monsterCatalog = {
   "zouro" : Zouro,
   "ouno"  : Ouno,
   "douo"  : Douo,
-  "trouo" : Trouo
+  "trouo" : Trouo,
+    "jira1": Trouo,
+    "jira2": Ouno,
+    "jira3": Zouro
+
 };
 var makeMonster = function makeMonster(monsterId, position, movePattern){
-  var MonsterConstructor= monsterCatalog[monsterId];
+  // var MonsterConstructor= monsterCatalog[monsterId];
+  var MonsterConstructor= Zouro;
   if(!constructor) throw "COME ON PEOPLE! This is not a valid monsterID!";
   else {
-    return new MonsterConstructor(position, movePattern);
+    return new MonsterConstructor(position, movePattern , monsterId);
   }
 }
 
 module.exports = {
-  Zouro : Zouro,
-  Ouno  : Ouno,
-  Douo  : Douo,
-  Trouo : Trouo,
-  make  : makeMonster
+    Zouro: Zouro,
+    Ouno: Ouno,
+    Douo: Douo,
+    Trouo: Trouo,
+    Jira: Jira,
+    make: makeMonster
 };
