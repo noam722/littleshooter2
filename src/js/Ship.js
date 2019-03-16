@@ -24,9 +24,12 @@ var Ship = React.createClass({
     var laserX      = ship.position[0] + ship.size[0] / 2;
     var hitBaddie   = this.getFirstHitBaddie( laserX, this.props.baddies );
     var laserHeight = hitBaddie ? Math.abs(hitBaddie.position[1] + hitBaddie.size[1] - ship.position[1]) : 1;
-    var hitByHoney = true;
 
     if(ship.isInvincible){
+      var firstbaddie = this.props.baddies && this.props.baddies.length>1 ? this.props.baddies[0]: null;
+      var preFix = firstbaddie && firstbaddie.PRFX_ID;
+      var hitByHoney = preFix && preFix.indexOf("honey")!==-1;
+
       if(hitByHoney){
           cssClasses.push("allergy");
       }

@@ -130,7 +130,7 @@ var Monster = function( config ) {
   this.speed        = config.speed || [0,0];
   this.maxSpeed     = config.maxSpeed || [0.0001, 0.0001];
   this.size         = config.size || [0.1, 0.1];
-  this.life         = 0; //config.life || 3;
+  this.life         = 1; //config.life || 3;
   this.weight       = config.weight || 1;
   this.pattern      = config.pattern ? (Patterns[config.pattern]).bind(this) :
                                        (Patterns.straight).bind(this);
