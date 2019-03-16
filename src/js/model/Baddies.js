@@ -130,7 +130,7 @@ var Monster = function( config ) {
   this.speed        = config.speed || [0,0];
   this.maxSpeed     = config.maxSpeed || [0.0001, 0.0001];
   this.size         = config.size || [0.1, 0.1];
-  this.life         = config.life || 3;
+  this.life         = 0; //config.life || 3;
   this.weight       = config.weight || 1;
   this.pattern      = config.pattern ? (Patterns[config.pattern]).bind(this) :
                                        (Patterns.straight).bind(this);
@@ -192,7 +192,7 @@ var Zouro = function( position, movePattern, _id){
     size         : [0.04, 0.04],
     weight       : 1,
     life         : 3,
-    pattern      : movePattern || "straight",
+    pattern      : movePattern || "triangle",
   });
 };
 Zouro.prototype = Object.create( Monster.prototype );
@@ -239,7 +239,7 @@ var Douo = function( position, movePattern, _id ){
     size         : [0.04, 0.04],
     weight       : 4,
     life         : 20,
-    pattern      : movePattern || "straight",
+    pattern      : movePattern || "pong",
     value        : 200
   });
     this.PRFX_ID = _id;
@@ -274,7 +274,7 @@ var Trouo = function( position, movePattern, _id ){
     size         : [0.04, 0.04],
     weight       : 0.75,
     life         : 3,
-    pattern      : movePattern || "pong",
+    pattern      : movePattern || "triangle",
     value        : 200
 
   });
@@ -283,19 +283,15 @@ var Trouo = function( position, movePattern, _id ){
 Trouo.prototype = Object.create(Monster.prototype);
 Trouo.prototype.constructor = Trouo;
 
-var monsterCatalog = {
-  "zouro" : Zouro,
-  "ouno"  : Ouno,
-  "douo"  : Douo,
-  "trouo" : Trouo,
-    "jira1": Trouo,
-    "jira2": Ouno,
-    "jira3": Zouro
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 
-};
+var monsterCatalog = [Zouro,Ouno, Douo, Trouo];
+
 var makeMonster = function makeMonster(monsterId, position, movePattern){
   // var MonsterConstructor= monsterCatalog[monsterId];
-  var MonsterConstructor= Zouro;
+  var MonsterConstructor= monsterCatalog[getRandomInt(3)];
   if(!constructor) throw "COME ON PEOPLE! This is not a valid monsterID!";
   else {
     return new MonsterConstructor(position, movePattern , monsterId);

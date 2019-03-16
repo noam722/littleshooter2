@@ -35,7 +35,7 @@ Player.prototype = {
   successShoot: function(t){
     var newState = new Player( this );
     newState.lastUsedWeaponAt = t; 
-    newState.weaponEnergy = Math.max(0, this.weaponEnergy - 5);
+    newState.weaponEnergy = Math.max(0, this.weaponEnergy - 1);
     return Object.freeze(newState);
   },
   failShoot: function(t){
