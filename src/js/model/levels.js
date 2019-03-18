@@ -4,7 +4,8 @@ module.exports = [
         description: "House Devils are taking over Mars after defeating house Gang",
         instructions: "Defeat the best house in Yigal Alon 126",
       wave : [
-        [1, "devil1"],
+        [0, "devil1"],
+        [1, "zachi"],
         [2, "meital"],
         [3, "royi"],
         [4, "devil2"],
@@ -12,7 +13,7 @@ module.exports = [
         [6, "noam"],
         [7, "devil3"],
         [8, "mark"],
-        [9, "dima"],
+        [9, "dmitry"],
         [10, "nitzan"]
       ] },
   { title: "Support!!!",
@@ -39,15 +40,7 @@ module.exports = [
       [1, "honey1"],
       [3, "honey2"],
       [5, "honey3"],
-      [7, "honey4"],
-      // [9, "honey1"],
-      // [13, "honey2"],
-      // [13, "honey3"],
-      // [16, "honey4"],
-      // [18, "honey1"],
-      // [20, "honey3"],
-      // [24, "honey2"],
-      // [24, "honey3"]
+      [7, "honey4"]
     ] },
   { title: "The Hopper Era",
     description: "The Hopper house Era was the best Era in the bizzabo galaxy history",
@@ -73,7 +66,6 @@ module.exports = [
         [5, "muhamad"],
         [6, "ada"],
         [7, "zakkai"]
-        // [8, "zakkai"]
       ] },
     { title: "Ticket Boost - the Big Bang",
       description: "Promote your galaxy to win the key to universe",

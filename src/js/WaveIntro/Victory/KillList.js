@@ -8,17 +8,19 @@ var KillList = React.createClass( {
     var currentWave = this.props.stats.currentWave;
     var killList    = _.map(currentWave.kill, function(timestamps, monsterType){
       var monsterClass = "monster "+monsterType;
-      return <li key={monsterType} className={ this.props.className + " delay-" + ++i}>
+      const offset = i%2==0?1:0;
+      console.log(offset);
+      return <div key={monsterType} className={ "col-xs-offset-"+offset+ " col-xs-5  "+this.props.className + " delay-" + ++i}>
         <span className={monsterClass}/> x {timestamps.length}
-      </li>
+      </div>
     }, this);
     var perfectText = _.isEmpty(currentWave.miss) ?
       <div className={"perfect impact delay-"+ (i+1) }>Perfect</div> : undefined;
     return <div className="kill-list">
       <h2 className={this.props.className + ' victory-description'}>{this.props.title}</h2>
-      <ul>
+      <div className={'row justify-content-center'}>
         {killList}
-      </ul>
+      </div>
       {perfectText}
     </div>;
   }
