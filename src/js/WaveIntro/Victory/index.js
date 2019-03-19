@@ -9,7 +9,7 @@ var Victory = React.createClass({
   render : function(){
     if( this.props.score > 0 ){
       return <div className="wave-intro intro">
-          <h1 className="impact">{this.props.title}</h1>
+          <h1 className="impact">{this.props.title}{this.props.newVP ?<img src={'assets/'+this.props.newVP+'.png'} style={{maxWidth: '80px', maxHeight: '80px'}}/>: ''}  </h1>
           <KillList className="from-left" stats={this.props.stats} title={this.props.description}/>
           <Score className="fade-in" score={ this.props.score } />
           <p className="fade-in-then-blink">

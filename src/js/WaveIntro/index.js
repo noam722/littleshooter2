@@ -20,7 +20,7 @@ var WaveIntro = React.createClass({
       var currentWave = this.props.world.waveManager.getWave(this.props.world.waveManager.currentWave);
     if( this.state.step === 0){
       if(this.state.isVictory)
-        return <Victory score={this.state.score} stats={this.props.world.stats} title={currentWave.victoryTitle || 'VICTORY!'} description={currentWave.victoryDescription ||  'ENEMIES KILLED'} />;
+        return <Victory score={this.state.score} stats={this.props.world.stats} title={currentWave.victoryTitle || 'VICTORY!'} newVP={currentWave.newVP} description={currentWave.victoryDescription ||  'ENEMIES KILLED'} />;
       else
         return <Defeat stats={this.props.world.stats}/>;
     }

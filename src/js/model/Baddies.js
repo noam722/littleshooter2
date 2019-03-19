@@ -130,7 +130,7 @@ var Monster = function( config ) {
   this.speed        = config.speed || [0,0];
   this.maxSpeed     = config.maxSpeed || [0.0001, 0.0001];
   this.size         = config.size || [0.1, 0.1];
-  this.life         = 1; //config.life || 3;
+  this.life         = config.life || 1;
   this.weight       = config.weight || 1;
   this.pattern      = config.pattern ? (Patterns[config.pattern]).bind(this) :
                                        (Patterns.straight).bind(this);
@@ -191,7 +191,7 @@ var Zouro = function( position, movePattern, _id){
     speed        : [0, 0.0001],
     size         : [0.04, 0.04],
     weight       : 1,
-    life         : 3,
+    life         : 1,
     pattern      : movePattern || "triangle",
   });
 };
@@ -206,7 +206,7 @@ var Ouno = function( position, movePattern, _id){
     speed        : [0, 0.0003],
     size         : [0.04, 0.04],
     weight       : 1,
-    life         : 3,
+    life         : 1,
     pattern      : movePattern || "largeScan",
     value        : 100
   });
@@ -222,7 +222,7 @@ var Jira = function( position, movePattern, _id){
     speed        : [0, 0.0003],
     size         : [0.04, 0.04],
     weight       : 1,
-    life         : 3,
+    life         : 1,
     pattern      : movePattern || "largeScan",
     value        : 100
   });
@@ -238,7 +238,7 @@ var Douo = function( position, movePattern, _id ){
     speed        : [0, 0.0001],
     size         : [0.04, 0.04],
     weight       : 4,
-    life         : 20,
+    life         : 1,
     pattern      : movePattern || "pong",
     value        : 200
   });
@@ -265,6 +265,40 @@ Douo.prototype.afterMove = function( dt, world ){
   }
 };
 
+var Boss = function( position, movePattern, _id ){
+  Monster.call( this, {
+    position     : position || [ Math.random(), -0.2],
+    maxSpeed     : [0.0002, 0.0002],
+    speed        : [0, 0.0002],
+    size         : [0.08, 0.08],
+    weight       : 4,
+    life         : 10,
+    pattern      : movePattern || "pong",
+    value        : 200
+  });
+  this.PRFX_ID = _id;
+  this.lastFire     = 0;
+};
+Boss.prototype = Object.create(Monster.prototype);
+Boss.prototype.constructor = Boss;
+
+Boss.prototype.afterMove = function( dt, world ){
+  var x = this.position[0] + this.size[0]/2;
+  var xPlayer = world.ship.position[0];
+  if( world.timestamp > ( this.lastFire + 1000 ) &&
+      xPlayer < x + 0.1 &&
+      xPlayer > x - 0.1 ) {
+    Sounds.sprites.play('alienRocket');
+    Messages.post(
+        Messages.ID.ROCKET_LAUNCH,
+        Messages.channelIDs.GAME,
+        { pos : [ x , this.position[1] ],
+          dir : [ 0, 0.001 ],
+          isFromBaddies : true });
+    this.lastFire = world.timestamp;
+  }
+};
+
 var Trouo = function( position, movePattern, _id ){
   this.PRFX_ID = _id;
   Monster.call( this, {
@@ -273,7 +307,7 @@ var Trouo = function( position, movePattern, _id ){
     speed        : [0, 0.0002],
     size         : [0.04, 0.04],
     weight       : 0.75,
-    life         : 3,
+    life         : 1,
     pattern      : movePattern || "triangle",
     value        : 200
 
@@ -288,10 +322,16 @@ function getRandomInt(max) {
 }
 
 var monsterCatalog = [Zouro,Ouno, Douo, Trouo];
+var boss = ['ran', 'boaz', 'alon', 'gai', 'eran', 'tal','founders'];
 
 var makeMonster = function makeMonster(monsterId, position, movePattern){
   // var MonsterConstructor= monsterCatalog[monsterId];
-  var MonsterConstructor= monsterCatalog[getRandomInt(3)];
+  var MonsterConstructor;
+  if (boss.includes(monsterId)){
+    MonsterConstructor = Boss;
+  }else {
+    MonsterConstructor = monsterCatalog[getRandomInt(3)];
+  }
   if(!constructor) throw "COME ON PEOPLE! This is not a valid monsterID!";
   else {
     return new MonsterConstructor(position, movePattern , monsterId);
