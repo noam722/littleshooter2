@@ -109,7 +109,7 @@ var Patterns = {
       }
     };
     return p.call(this, deltaT, timestamp);
-  
+
   }
 };
 
@@ -299,6 +299,40 @@ Boss.prototype.afterMove = function( dt, world ){
   }
 };
 
+var Founders = function( position, movePattern, _id ){
+  Monster.call( this, {
+    position     : position || [ Math.random(), -0.2],
+    maxSpeed     : [0.0002, 0.0002],
+    speed        : [0, 0.0002],
+    size         : [0.12, 0.12],
+    weight       : 4,
+    life         : 15,
+    pattern      : movePattern || "pong",
+    value        : 200
+  });
+  this.PRFX_ID = _id;
+  this.lastFire     = 0;
+};
+Founders.prototype = Object.create(Monster.prototype);
+Founders.prototype.constructor = Founders;
+
+Founders.prototype.afterMove = function( dt, world ){
+  var x = this.position[0] + this.size[0]/2;
+  var xPlayer = world.ship.position[0];
+  if( world.timestamp > ( this.lastFire + 1000 ) &&
+      xPlayer < x + 0.1 &&
+      xPlayer > x - 0.1 ) {
+    Sounds.sprites.play('alienRocket');
+    Messages.post(
+        Messages.ID.ROCKET_LAUNCH,
+        Messages.channelIDs.GAME,
+        { pos : [ x , this.position[1] ],
+          dir : [ 0, 0.001 ],
+          isFromBaddies : true });
+    this.lastFire = world.timestamp;
+  }
+};
+
 var Trouo = function( position, movePattern, _id ){
   this.PRFX_ID = _id;
   Monster.call( this, {
@@ -317,6 +351,22 @@ var Trouo = function( position, movePattern, _id ){
 Trouo.prototype = Object.create(Monster.prototype);
 Trouo.prototype.constructor = Trouo;
 
+var BizzaLove = function( position, movePattern, _id ){
+  Monster.call( this, {
+    position     : position || [ Math.random(), -0.2],
+    maxSpeed     : [0.0001, 0.0001],
+    speed        : [0, 0.0001],
+    size         : [0.2, 0.2],
+    weight       : 4,
+    life         : 1,
+    pattern      : movePattern || "largeScan",
+    value        : 200
+  });
+  this.PRFX_ID = _id;
+};
+BizzaLove.prototype = Object.create(Monster.prototype);
+BizzaLove.prototype.constructor = BizzaLove;
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
@@ -328,7 +378,9 @@ var makeMonster = function makeMonster(monsterId, position, movePattern){
   // var MonsterConstructor= monsterCatalog[monsterId];
   var MonsterConstructor;
   if (boss.includes(monsterId)){
-    MonsterConstructor = Boss;
+    MonsterConstructor = monsterId === 'founders' ? Founders : Boss;
+  }else if(monsterId === 'withlove'){
+    MonsterConstructor = BizzaLove;
   }else {
     MonsterConstructor = monsterCatalog[getRandomInt(3)];
   }

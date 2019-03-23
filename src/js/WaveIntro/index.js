@@ -65,8 +65,10 @@ var WaveIntro = React.createClass({
     }
     else if( step === 0 && props.inputState.keys.enter){
       Sounds.sprites.play("validate");
-      if(this.props.world.player.life < 1)
+      const gameOver = (this.props.world.waveManager.currentWave === this.props.world.waveManager.CONFIG.length - 1);
+      if(this.props.world.player.life < 1 || gameOver )
         Messages.post(Messages.ID.CHANGE_SCREEN, Messages.channelIDs.ROOT, this.props.world);
+
       this.setState({
         step : 1
       });
