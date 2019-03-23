@@ -6,9 +6,6 @@ var KillList = React.createClass( {
   render: function(){
     var i = 0;
     var currentWave = this.props.stats.currentWave;
-    if (currentWave.kill.withlove){
-      return <div></div>;
-    }
     var killList    = _.map(currentWave.kill, function(timestamps, monsterType){
       var monsterClass = "monster "+monsterType;
       const offset = i%2==0?1:0;
