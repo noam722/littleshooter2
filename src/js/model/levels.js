@@ -27,12 +27,12 @@ module.exports = [
   { title: "Ticket Boost - the Big Bang",
     description: "Promote your galaxy to win the key to the universe",
     instructions: "Kill it on social media to earn your reward",
-      victoryTitle: "You now have the the key to the universe !!",
-      victoryDescription: "Share it on Space-Book to earn a discount",
+      victoryTitle: "You now have the key to the universe !!",
+      victoryDescription: "Share it on Space-Book to earn a discount for space-x tickets to earth",
       sounds: {
-          intro: 'Silence01s.mp3',
-          level: 'Silence01s.mp3',
-          victory: 'Silence01s.mp3'
+          intro: 'promote-your-galaxy-to-win-the1553409384.mp3',
+          level: 'ticket-boost-the-big-bang1553409131.mp3',
+          victory: 'you-now-have-the-key1553409546.mp3'
       },
     wave : [
       [1, "ticket"],
