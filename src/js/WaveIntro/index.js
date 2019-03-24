@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 var React = require('react/addons');
 var _ = require('underscore');
+var Howl = require('howler').Howl;
+
 
 var Messages = require('../Messages');
 var Victory = require('./Victory');
@@ -20,7 +22,7 @@ var WaveIntro = React.createClass({
       var currentWave = this.props.world.waveManager.getWave(this.props.world.waveManager.currentWave);
     if( this.state.step === 0){
       if(this.state.isVictory)
-        return <Victory score={this.state.score} stats={this.props.world.stats} title={currentWave.victoryTitle || 'VICTORY!'} newVP={currentWave.newVP} description={currentWave.victoryDescription ||  'ENEMIES KILLED'} />;
+        return <Victory score={this.state.score} stats={this.props.world.stats} title={currentWave.victoryTitle || 'VICTORY!'} newVP={currentWave.newVP}  sounds={currentWave.sounds} description={currentWave.victoryDescription ||  'ENEMIES KILLED'} />;
       else
         return <Defeat stats={this.props.world.stats}/>;
     }
@@ -28,9 +30,16 @@ var WaveIntro = React.createClass({
       return <div className="day intro">
                <h1 className="from-bottom-fade-in delay-1">LEVEL {waveNumber + 1}</h1>
                <p className="from-top-fade-in delay-2 level-title">{ nextWave.title }</p>
+        <audio id="sound_level"  hidden={true}>
+          <source src={`assets/music/${nextWave.sounds.level}`} type="audio/mpeg" />
+        </audio>
+        <audio id="sound_level_num"  hidden={true}>
+          <source src={`assets/music/level${waveNumber+1}.mp3`} type="audio/mpeg" />
+        </audio>
              </div>
     }
     else if(this.state.step === 2){
+
       return <div className="wave-intro intro">
           <h1 className="impact">{nextWave.title}</h1>
           <p className="from-left level-description">{nextWave.description}</p>
@@ -39,7 +48,11 @@ var WaveIntro = React.createClass({
           <p className="fade-in-then-blink">
             Press <span className="button">enter</span>
           </p>
-        </div>;
+        <audio id="sound_intro" hidden={true}>
+          <source src={`assets/music/${nextWave.sounds.intro}`} type="audio/mpeg" />
+        </audio>
+        </div>
+          ;
     }
   },
   shouldComponentUpdate: function(nextProps, nextState){
@@ -47,6 +60,47 @@ var WaveIntro = React.createClass({
   },
   componentWillReceiveProps: function(props){
     var step = this.state.step;
+    var soundPlayed = this.state.soundPlayed || {};
+    if (step === 1 && !soundPlayed.level){
+      setTimeout(function () {
+        document.getElementById('sound_level_num').play();
+
+      }, 500);
+      setTimeout(function () {
+        document.getElementById('sound_level').play();
+
+      }, 1500);
+      this.setState({
+        soundPlayed : {
+          ...soundPlayed,
+          level: true
+        }
+      });
+
+    }
+    if (step === 2 && !soundPlayed.intro){
+      setTimeout(function () {
+        document.getElementById('sound_intro').play();
+      }, 1000);
+
+        this.setState({
+          soundPlayed : {
+            ...soundPlayed,
+            intro: true
+          }
+        });
+    }
+    if (step === 0 && !soundPlayed.victory){
+      setTimeout(function () {
+        document.getElementById('sound_victory').play();
+      }, 1000);
+      this.setState({
+        soundPlayed : {
+          ...soundPlayed,
+          victory: true
+        }
+      });
+    }
     if( step === 2 && props.inputState.keys.enter){
       Sounds.sprites.play("validate");
       if(this.state.isVictory)
@@ -79,6 +133,21 @@ var WaveIntro = React.createClass({
   },
   componentDidUpdate: function(){
     this.setupTimeout();
+    var waveNumber = this.props.world.waveManager.currentWave + (this.state.isVictory ? 1 : 0);
+    var nextWave = this.props.world.waveManager.getWave(waveNumber);
+    var step = this.state.step;
+    if ( step === 2 && nextWave.sounds && nextWave.sounds.intro) {
+    document.getElementById('sound_intro').play();
+    }
+    if ( step === 1 && nextWave.sounds && nextWave.sounds.intro) {
+    document.getElementById('sound_level').play();
+
+
+    }
+    if ( step === 0 && nextWave.sounds && nextWave.sounds.victory) {
+      document.getElementById('sound_victory');
+    }
+
   },
   setupTimeout: function(){
     if( this.state.step === 1){

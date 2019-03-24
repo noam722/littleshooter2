@@ -56,6 +56,10 @@
 .blink {
   animation : blink 200ms infinite;
 }
+
+.blink-slow {
+  animation : blink 1500ms infinite;
+}
 .allergy{
     animation-name:allergy;
     animation-duration: 1.5s;
@@ -130,7 +134,7 @@
   0%      { transform: translateX( -100% )}
   90%     { transform: translateX( 5% )}
   100%    { transform: translateX( 0% )}
-} 
+}
 
 @keyframes fromTop {
   0%      { transform: translateY( -100px )}
@@ -148,17 +152,17 @@
   95%     { transform: scale( 1.05 );}
   100%    { opacity: 1;
             transform: scale( 1 )}
-} 
+}
 
 @keyframes simpleFadeIn {
   0%      { opacity: 0;}
   100%    { opacity: 1;}
-} 
+}
 
 @keyframes simpleFadeOut {
   0%      { opacity: 1;}
   100%    { opacity: 0;}
-} 
+}
 
 @keyframes impact {
   0%      { opacity: 0;

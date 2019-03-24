@@ -4,7 +4,7 @@ var Messages = require('../Messages');
 var loaded = false;
 var sprites = new Howl({
   urls : ['assets/sprites.ogg'],
-  volume: 0.7,
+  volume: 0.04 ,
   sprite : {
     rocket: [0, 430],
     explosion: [430, 945],
@@ -17,12 +17,12 @@ var sprites = new Howl({
   }
 });
 
-var music = new Howl({
-  urls: ['assets/song1.ogg'],
-  loop: true,
-  autoplay: true,
-  volume: 0.8
-});
+// var music = new Howl({
+//   urls: ['assets/song1.ogg'],
+//   loop: true,
+//   autoplay: true,
+//   volume: 0.4
+// });
 
 module.exports = {
   sprites : sprites

@@ -15,6 +15,9 @@ var Victory = React.createClass({
           <p className="fade-in-then-blink">
             Press <span className="button">enter</span>
           </p>
+          <audio id="sound_victory" hidden>
+              <source src={`assets/music/${this.props.sounds.victory}`} type="audio/mpeg" />
+          </audio>
         </div>;
     }
     else {
@@ -24,6 +27,9 @@ var Victory = React.createClass({
           <p className="fade-in-then-blink">
             Press <span className="button">enter</span>
           </p>
+          <audio id="sound_victory">
+              <source src={`assets/music/${this.props.sounds.victory}`} type="audio/mpeg" />
+          </audio>
         </div>;
     }
   }
