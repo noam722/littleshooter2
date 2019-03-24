@@ -45,14 +45,14 @@ module.exports = [
       [10, "share2"]
     ] },
   { title: "Support!!!",
-    description: "Limor was the queen and ruler of support galaxy",
-    instructions: "Destroy Jira and the open support tickets",
+    description: "You are now the queen and ruler of support galaxy",
+    instructions: "Destroy the open support tickets",
     victoryTitle: "Yes!!! the support week is over !!",
-    victoryDescription: "You managed to close a lot of tickets! ",
+    victoryDescription: "You managed to close a lot of tickets!",
       sounds: {
-          intro: 'Silence01s.mp3',
-          level: 'Silence01s.mp3',
-          victory: 'Silence01s.mp3'
+          intro: 'you-are-now-the1553442395.mp3',
+          level: 'support1553409627.mp3',
+          victory: 'yes-the-support1553442615.mp3'
       },
     wave : [
       [1, "jira1"],

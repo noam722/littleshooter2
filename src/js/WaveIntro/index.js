@@ -62,20 +62,20 @@ var WaveIntro = React.createClass({
     var step = this.state.step;
     var soundPlayed = this.state.soundPlayed || {};
     if (step === 1 && !soundPlayed.level){
-      setTimeout(function () {
-        document.getElementById('sound_level_num').play();
-
-      }, 500);
-      setTimeout(function () {
-        document.getElementById('sound_level').play();
-
-      }, 1500);
+      document.getElementById('sound_level_num').pause();
+      document.getElementById('sound_level').pause();
       this.setState({
         soundPlayed : {
           ...soundPlayed,
           level: true
         }
       });
+      setTimeout(function () {
+        document.getElementById('sound_level_num').play();
+      }, 500);
+      setTimeout(function () {
+        document.getElementById('sound_level').play();
+      }, 1500);
 
     }
     if (step === 2 && !soundPlayed.intro){
