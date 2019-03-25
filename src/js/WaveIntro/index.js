@@ -21,12 +21,14 @@ var WaveIntro = React.createClass({
       var nextWave = this.props.world.waveManager.getWave(waveNumber);
       var currentWave = this.props.world.waveManager.getWave(this.props.world.waveManager.currentWave);
     if( this.state.step === 0){
+      Sounds.lowerGameVolume();
       if(this.state.isVictory)
         return <Victory score={this.state.score} stats={this.props.world.stats} title={currentWave.victoryTitle || 'VICTORY!'} newVP={currentWave.newVP}  sounds={currentWave.sounds} description={currentWave.victoryDescription ||  'ENEMIES KILLED'} />;
       else
         return <Defeat stats={this.props.world.stats}/>;
     }
     else if(this.state.step === 1){
+      Sounds.createNewHowl(waveNumber +1);
       return <div className="day intro">
                <h1 className="from-bottom-fade-in delay-1">LEVEL {waveNumber + 1}</h1>
                <p className="from-top-fade-in delay-2 level-title">{ nextWave.title }</p>

@@ -17,13 +17,25 @@ var sprites = new Howl({
   }
 });
 
-// var music = new Howl({
-//   urls: ['assets/song1.ogg'],
-//   loop: true,
-//   autoplay: true,
-//   volume: 0.4
-// });
+var music;
+
+
+var createNewHowl = function (level){
+  music && music.stop();
+  music = new Howl({
+  urls: [`assets/music/m${level}.mp3`],
+  loop: true,
+  autoplay: true,
+  volume: 0.3
+});
+};
+
+var lowerGameVolume = function(){
+  music && music.volume(0.1);
+}
 
 module.exports = {
-  sprites : sprites
+  sprites : sprites,
+  createNewHowl: createNewHowl,
+  lowerGameVolume: lowerGameVolume
 };

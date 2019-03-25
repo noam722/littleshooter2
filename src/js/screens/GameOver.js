@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var Messages = require('../Messages.js');
+var Sounds = require('../Sounds');
 
 var GameOver = React.createClass({
   render:function(){
@@ -18,9 +19,20 @@ var GameOver = React.createClass({
       <h2 className={'blink-slow'} style={{ marginTop:'20px' }}>
       New Game <span className="button">return</span>
       </h2>
+      <audio id="sound_thanks" hidden={true}>
+        <source src={`assets/music/leemore-thank-you1553454062.mp3`} type="audio/mpeg" />
+      </audio>
     </div>;
   },
   componentWillReceiveProps:function(next){
+    Sounds.createNewHowl(100);
+    if (!(this.state && this.state.played)){
+      document.getElementById('sound_thanks').play();
+      this.setState({
+        ...state,
+        played: true
+      })
+    }
     if(next.inputState.keys.enter) Messages.post(Messages.ID.CHANGE_SCREEN, Messages.channelIDs.ROOT);
   }
 });
