@@ -121,7 +121,27 @@ module.exports = [
             [9, "honey3"],
             [10, "honey4"]
         ] },
-  { title: "The Hopper Era",
+    { title: "The Eval Back-End Guild",
+        description: "Alex has assembled the eval Back-End Guild, to create an endless log file that will destroy the universe",
+        instructions: "Stop them before it's too late. and beware, a code review is always waiting around the corner",
+        victoryTitle: "Hooray you have stopped the eval Back-End Guild !!",
+        victoryDescription: "Whatever you do, do not approve any code review!",
+        sounds: {
+            intro: 'alex-has-assembled-the1553545016.mp3',
+            level: 'the-evel-back-end-guild1553544764.mp3',
+            victory: 'hooray-you-have-stopped1553545134.mp3'
+        },
+        wave : [
+            [1, "kotlin1"],
+            [1, "alex"],
+            [3, "lior"],
+            [4, "nitzan"],
+            [6, "nizan"],
+            [7, "andrii"],
+            [8, "kotlin2"]
+        ] },
+
+    { title: "The Hopper Era",
     description: "The Hopper house Era was the best Era in the bizzabo galaxy history",
     instructions: "All good things must end... Destroy them and make room for a new dynasty",
       victoryTitle: "The Hopper house has been Destroyed !!",

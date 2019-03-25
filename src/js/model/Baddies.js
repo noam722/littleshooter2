@@ -372,7 +372,7 @@ function getRandomInt(max) {
 }
 
 var monsterCatalog = [Zouro,Ouno, Douo, Trouo];
-var boss = ['ran', 'boaz', 'alon', 'gai', 'eran', 'tal','founders'];
+var boss = ['ran', 'boaz', 'alon', 'gai', 'eran', 'tal','founders', 'alex'];
 
 var makeMonster = function makeMonster(monsterId, position, movePattern){
   // var MonsterConstructor= monsterCatalog[monsterId];
