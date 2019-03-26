@@ -133,9 +133,9 @@ module.exports = [
         },
         wave : [
             [1, "kotlin1"],
-            [1, "alex"],
-            [3, "lior"],
-            [4, "nitzan"],
+            [2, "lior"],
+            [3, "nitzan"],
+            [4, "alex"],
             [6, "nizan"],
             [7, "andrii"],
             [8, "kotlin2"]
